@@ -16,7 +16,9 @@ export class AppComponent {
 
   filter: string = ""
 
-  constructor(public categoriesService: CategoriesService) {
+  constructor(public categoriesService: CategoriesService) {}
+
+  ngOnInit() {
     this.retriveCategories()
   }
 
@@ -27,8 +29,6 @@ export class AppComponent {
   }
 
   handleFilter() {
-    console.log(this.filter)
-
     if (!this.filter) {
       this.isSearch = false
 
