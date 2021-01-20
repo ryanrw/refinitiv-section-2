@@ -9,7 +9,7 @@
   />
 </div>
 
-<table *ngIf="!isSearch">
+<table class="categories" *ngIf="!isSearch">
   <thead>
     <tr>
       <th>Categories</th>
@@ -22,7 +22,7 @@
   </tbody>
 </table>
 
-<table *ngIf="isSearch">
+<table class="result" *ngIf="isSearch">
   <thead>
     <tr>
       <th>Categories Result</th>
