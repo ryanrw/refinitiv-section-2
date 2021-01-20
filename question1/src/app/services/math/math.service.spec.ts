@@ -51,6 +51,10 @@ describe("MathService", () => {
       expect(service.isFibonacci(1.3)).toBeTrue()
     })
 
+    it("should return false, input = 6", () => {
+      expect(service.isFibonacci(6)).toBeFalse()
+    })
+
     it("should return false, input = 14", () => {
       expect(service.isFibonacci(14)).toBeFalse()
     })

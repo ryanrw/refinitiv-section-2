@@ -6,20 +6,22 @@ import { Injectable } from "@angular/core"
 export class MathService {
   constructor() {}
 
-  isFibonacci(number: number): boolean {
+  public isFibonacci(number: number): boolean {
     const roundedNumber = Math.round(number)
 
     return (
-      this.isPerfectSquare(5 * Math.pow(roundedNumber, 2) + 4) ||
-      this.isPerfectSquare(5 * Math.pow(roundedNumber, 2) - 4)
+      this.isPerfectSquare(5 * roundedNumber * roundedNumber + 4) ||
+      this.isPerfectSquare(5 * roundedNumber * roundedNumber - 4)
     )
   }
 
-  isPerfectSquare(number: number): boolean {
-    return Math.pow(Math.sqrt(number), 2) === number
+  private isPerfectSquare(number: number): boolean {
+    const sqrtNumber = Math.round(Math.sqrt(number))
+
+    return sqrtNumber * sqrtNumber === number
   }
 
-  isPrime(number: number): boolean {
+  public isPrime(number: number): boolean {
     const roundedNumber = Math.round(number)
 
     for (let i = 2, s = Math.sqrt(roundedNumber); i <= s; i++)
