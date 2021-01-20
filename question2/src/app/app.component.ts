@@ -1,10 +1,22 @@
 import { Component } from "@angular/core"
 
+import { CategoriesService } from "src/app/services/categories/categories.service"
+
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.sass"],
 })
 export class AppComponent {
-  dataList = ["asdf", "qwer", "zxcv"]
+  categories: string[] = []
+
+  constructor(public categoriesService: CategoriesService) {
+    this.retriveCategories()
+  }
+
+  retriveCategories() {
+    this.categoriesService.get().subscribe((response) => {
+      this.categories = response
+    })
+  }
 }
