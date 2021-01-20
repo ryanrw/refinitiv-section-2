@@ -8,10 +8,63 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', async () => {
-    await page.navigateTo();
-    expect(await page.getTitleText()).toEqual('question1 app is running!');
-  });
+  describe("isPrime", () => {
+    it('should get the answer `true` when enter a number in the input', async () => {
+      await page.navigateTo();
+  
+      await page.enterInput('2')
+  
+      expect(await page.getAnswer()).toEqual('true');
+    });
+  
+    it('should get the answer `false` when enter non-prime number in the input', async () => {
+      await page.navigateTo();
+  
+      await page.enterInput('6')
+  
+      expect(await page.getAnswer()).toEqual('false');
+    })
+  
+    it('should get the answer `false` when enter non-prime number in the input', async () => {
+      await page.navigateTo();
+  
+      await page.enterInput('')
+  
+      expect(await page.getAnswer()).toEqual('false');
+    })
+  })
+
+  describe("isFibonacci", () => {
+    it('should get the answer `true` when enter a number in the input', async () => {
+      await page.navigateTo();
+  
+      await page.enterInput('2')
+
+      await page.selectDropdown('isFibonacci')
+  
+      expect(await page.getAnswer()).toEqual('true');
+    });
+  
+    it('should get the answer `false` when enter non-prime number in the input', async () => {
+      await page.navigateTo();
+  
+      await page.enterInput('6')
+
+      await page.selectDropdown('isFibonacci')
+  
+      expect(await page.getAnswer()).toEqual('false');
+    })
+  
+    it('should get the answer `false` when enter non-prime number in the input', async () => {
+      await page.navigateTo();
+  
+      await page.enterInput('')
+
+      await page.selectDropdown('isFibonacci')
+  
+      expect(await page.getAnswer()).toEqual('false');
+    })
+  })
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser

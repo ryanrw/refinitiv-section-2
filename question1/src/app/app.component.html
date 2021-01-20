@@ -1,14 +1,21 @@
 <div class="container">
-  <div class="left-row">
-    <input type="text" name="number" />
+  <div class="left-col">
+    <input
+      type="text"
+      name="number"
+      [(ngModel)]="numberInput.value"
+      autocomplete="off"
+      (input)="inputCheck($event)"
+      id="number"
+    />
   </div>
-  <div class="center-row">
-    <select name="function">
-      <option>isPrime</option>
-      <option>isFibanacci</option>
+  <div class="middle-col">
+    <select name="funcName" id="func-name" [(ngModel)]="numberInput.funcName">
+      <option value="isPrime">isPrime</option>
+      <option value="isFibonacci">isFibonacci</option>
     </select>
   </div>
-  <div class="right-row">answer</div>
+  <div class="right-col">{{ answer }}</div>
 </div>
 
 <router-outlet></router-outlet>
