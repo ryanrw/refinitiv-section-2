@@ -5,8 +5,6 @@ import cheerio from 'cheerio'
 main()
 
 async function main() {
-  console.log('Starting...')
-
   const browser = await puppeteer.launch()
 
   await downloadNavFundData(browser)
@@ -16,8 +14,6 @@ async function main() {
   printNavFundValue(navFunds)
 
   await browser.close()
-
-  console.log('Done!')
 }
 
 /**
@@ -30,9 +26,8 @@ async function downloadNavFundData(browser) {
 
   const fileExists = fs.existsSync(htmlFileName)
 
+  // Using file instead, which is faster
   if (fileExists) {
-    console.log(`Skipping download`)
-
     return
   }
 
