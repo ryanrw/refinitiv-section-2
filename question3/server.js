@@ -11,7 +11,9 @@ async function main() {
 
   await downloadNavFundData(browser)
 
-  const value = await parseNavFund()
+  const navFunds = await parseNavFund()
+
+  printNavFundValue(navFunds)
 
   await browser.close()
 
@@ -89,7 +91,17 @@ async function clickOnAcceptButton(page) {
 }
 
 /**
+ * @typedef {object} NavFund - NavFund
+ * @property {string} fundName
+ * @property {string} nav
+ * @property {string} bid
+ * @property {string} offer
+ * @property {string} change
+ */
+
+/**
  * Parse raw HTML into NavFund object
+ * @returns {NavFund[]}
  */
 async function parseNavFund() {
   const htmlFileName = 'dist/navFund.html'
@@ -123,4 +135,16 @@ async function parseNavFund() {
   })
 
   return values
+}
+
+/**
+ * Print NAV value to console
+ * @param {NavFund[]} navFunds 
+ */
+function printNavFundValue(navFunds) {
+  const value = navFunds.find(item => item.fundName === process.argv[process.argv.length - 1])
+
+  if (value) {
+    console.log(value.nav)
+  }
 }
