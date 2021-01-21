@@ -5,7 +5,12 @@ import cheerio from 'cheerio'
 main()
 
 async function main() {
-  const browser = await puppeteer.launch()
+  try {
+    const browser = await puppeteer.launch({
+      args: [
+        '--incognito',
+      ],
+    })
 
   await downloadNavFundData(browser)
 
@@ -14,6 +19,16 @@ async function main() {
   printNavFundValue(navFunds)
 
   await browser.close()
+  } catch (error) {
+    switch (error.name) {
+      case "TimeoutError":
+        console.log("Navigation timeout of 20000 ms exceeded")
+        process.exit()
+      default:
+        console.log(error.message)
+        process.exit()
+    }
+  }
 }
 
 /**
