@@ -66,6 +66,8 @@ async function fetchUrl(browser, url) {
 
   await clickOnAcceptButton(page)
 
+  await page.waitForSelector('table')
+
   const html = await page.content()
 
   await page.close()
