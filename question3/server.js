@@ -123,7 +123,7 @@ async function parseNavFund() {
     tds.forEach((td, index) => {
       const $td = $(td)
 
-      navFund[keys[index]] = $td.text()
+      navFund[keys[index]] = $td.text().trim()
     })
 
     return navFund
