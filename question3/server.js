@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer'
 import fs from 'fs'
+import cheerio from 'cheerio'
 
 main()
 
@@ -9,6 +10,8 @@ async function main() {
   const browser = await puppeteer.launch()
 
   await downloadNavFundData(browser)
+
+  const value = await parseNavFund()
 
   await browser.close()
 
@@ -75,4 +78,49 @@ async function newPage(browser) {
   })
 
   return page
+}
+
+/**
+ * Click on accept button on the page to accept cookies
+ * @param {puppeteer.Page} page
+ */
+async function clickOnAcceptButton(page) {
+  await page.$eval('input[type=button]', button => button.click())
+}
+
+/**
+ * Parse raw HTML into NavFund object
+ */
+async function parseNavFund() {
+  const htmlFileName = 'dist/navFund.html'
+
+  const html = await fs.promises.readFile(htmlFileName)
+
+  const $ = cheerio.load(html)
+
+  const $trs = $('table tbody tr')
+
+  const values = $trs.toArray().filter(tr => $(tr).find('td').toArray().length > 0).map(tr => {
+    const tds = $(tr).find('td').toArray()
+
+    const navFund = {
+      fundName: '',
+      nav: '',
+      bid: '',
+      offer: '',
+      change: ''
+    }
+
+    const keys = Object.keys(navFund)
+
+    tds.forEach((td, index) => {
+      const $td = $(td)
+
+      navFund[keys[index]] = $td.text()
+    })
+
+    return navFund
+  })
+
+  return values
 }
