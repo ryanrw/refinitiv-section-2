@@ -5,7 +5,17 @@ export class AppPage {
     return browser.get(browser.baseUrl);
   }
 
-  async getTitleText(): Promise<string> {
-    return element(by.css('app-root .content span')).getText();
+  async enterInput(input: string = ""): Promise<void> {
+    await element(by.css('app-root .container #number')).sendKeys(input)
+  }
+
+  async selectDropdown(input: 'isPrime' | 'isFibonacci') {
+    const options = await element.all(by.css('app-root .container #func-name option'))
+    
+    await options[input === 'isPrime' ? 0 : 1].click()
+  }
+
+  async getAnswer() {
+    return element(by.css('app-root .container .right-col')).getText()
   }
 }
